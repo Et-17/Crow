@@ -67,6 +67,4 @@ def setup():
     print("Flattening extraction")
     extraction = flatten_extraction(extraction)
     print("Done")
-    print()
-
-setup()
+    return extraction
