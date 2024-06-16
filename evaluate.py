@@ -2,8 +2,8 @@ import setup
 
 def get_time_and_coeffs(julian_day, subdivisions):
     for key in subdivisions.keys():
-        if key[0] < julian_day and key[1] > julian_day:
-            return ((julian_day - key[0]) / (key[1] - key[0]), subdivisions[key])
+        if key[0] < julian_day and key[1] >= julian_day:
+            return (((julian_day - key[0]) / (key[1] - key[0])) * 2 - 1, subdivisions[key])
 
 def compute_chebyshev(time, coeffs):
     polys = []
@@ -22,10 +22,10 @@ def compute_chebyshev(time, coeffs):
 def test():
     subdivisions = setup.setup()
     for day in range(2460472, 2461472):
-        (time, coeffs) = get_time_and_coeffs(day, subdivisions)
+        (time, coeffs) = get_time_and_coeffs(day + 0.5, subdivisions)
         x = compute_chebyshev(time, coeffs[0])
         y = compute_chebyshev(time, coeffs[1])
         z = compute_chebyshev(time, coeffs[2])
-        print(f"{x}, {y}, {z}")
+        print(f"{day + 0.5}    {x}, {y}, {z}")
 
 test()
